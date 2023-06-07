@@ -101,6 +101,8 @@ const mutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
+        // Detele the project(s) associate with the client, when the client is deleted
+        // deleteOne() is used to delete the first document that matches the conditions from the collection, Mongoose
         Project.find({ clientId: args.id }).then((projects) => {
           projects.forEach((project) => {
             project.deleteOne();
